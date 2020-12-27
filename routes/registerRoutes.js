@@ -13,9 +13,32 @@ router.get('/', (req, res, next) => {
 });
 router.post('/', (req, res, next) => {
   let payload = {
+    ...req.body,
     pageTitle: 'Register',
   };
-  res.status(200).render('register', payload);
+  const {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+    passwordConf,
+  } = req.body;
+
+  if (
+    firstName.trim() &&
+    lastName.trim() &&
+    username.trim() &&
+    email.trim() &&
+    password.trim() &&
+    passwordConf.trim()
+  ) {
+    res.status(200).render('register', payload);
+  } else {
+    payload.errorMessage = 'Make sure each field has a valid value.';
+    res.status(200).render('register', payload);
+  }
+  console.log(req.body);
 });
 
 export default router;
