@@ -1,0 +1,25 @@
+{
+  "name": "twitter_clone",
+  "version": "1.0.0",
+  "description": "Twiter clone using node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcsuazo/twitter_clone.git"
+  },
+  "author": "Juan Suazo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jcsuazo/twitter_clone/issues"
+  },
+  "homepage": "https://github.com/jcsuazo/twitter_clone#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "pug": "^3.0.0"
+  }
+}
