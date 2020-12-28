@@ -32,6 +32,12 @@ const userSchema = mongoose.Schema(
       type: String,
       default: '/images/profilePic.png',
     },
+    linkes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
     isAdmin: {
       type: Boolean,
       required: true,

@@ -6,7 +6,9 @@ import colors from 'colors';
 import connectDB from './config/db.js';
 import { requireLogin } from './middleware.js';
 import loginRoute from './routes/loginRoutes.js';
+import logout from './routes/logoutRoutes.js';
 import registerRoutes from './routes/registerRoutes.js';
+import postRoutes from './routes/api/postRoutes.js';
 import session from 'express-session';
 
 dotenv.config();
@@ -33,10 +35,15 @@ app.use(
 //Statics Folders
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // Routes
 app.use('/login', loginRoute);
+app.use('/logout', logout);
 app.use('/register', registerRoutes);
+
+//API ROUTES
+app.use('/api/posts', postRoutes);
 
 app.get('/', requireLogin, (req, res, next) => {
   let payload = {
