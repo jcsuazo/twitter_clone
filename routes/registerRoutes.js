@@ -1,4 +1,5 @@
 import express from 'express';
+import User from '../models/UserModel.js';
 const app = express();
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
   };
   res.status(200).render('register', payload);
 });
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   let payload = {
     ...req.body,
     pageTitle: 'Register',
@@ -33,12 +34,37 @@ router.post('/', (req, res, next) => {
     password.trim() &&
     passwordConf.trim()
   ) {
+    try {
+      let user = await User.findOne({
+        $or: [{ username }, { email }],
+      });
+      if (user === null) {
+        const newUser = await User.create({
+          firstName,
+          lastName,
+          username,
+          email,
+          password,
+        });
+        req.session.user = newUser;
+        return res.redirect('/');
+      } else {
+        if (email === user.email) {
+          payload.errorMessage = 'Email already in use';
+        } else {
+          payload.errorMessage = 'Username already in use';
+        }
+        res.status(200).render('register', payload);
+      }
+    } catch (error) {
+      payload.errorMessage = 'Something went wrong try again later.';
+      res.status(200).render('register', payload);
+    }
     res.status(200).render('register', payload);
   } else {
     payload.errorMessage = 'Make sure each field has a valid value.';
     res.status(200).render('register', payload);
   }
-  console.log(req.body);
 });
 
 export default router;
