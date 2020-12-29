@@ -12,12 +12,22 @@ const postSchema = mongoose.Schema(
       ref: 'User',
     },
     pinned: Boolean,
-    linkes: [
+    likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
     ],
+    retweetUsers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    retweetData: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+    },
   },
   { timestamps: true },
 );

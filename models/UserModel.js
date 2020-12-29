@@ -32,7 +32,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: '/images/profilePic.png',
     },
-    linkes: [
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
+    retweets: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
